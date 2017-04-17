@@ -20,3 +20,24 @@ type Message struct {
 type Count struct {
 	Value int64
 }
+
+// Reverse the input string.
+func Reverse(input string) string {
+	//This solution comes from no one but Russ Cox himself:
+	// https://groups.google.com/d/msg/golang-nuts/oPuBaYJ17t4/PCmhdAyrNVkJ
+
+	// Get Unicode code points.
+	n := 0
+	rune := make([]rune, len(input))
+	for _, r := range input {
+		rune[n] = r
+		n++
+	}
+	rune = rune[0:n]
+	// Reverse
+	for i := 0; i < n/2; i++ {
+		rune[i], rune[n-1-i] = rune[n-1-i], rune[i]
+	}
+	// Convert back to UTF-8.
+	return string(rune)
+}
