@@ -1,8 +1,11 @@
-FROM golang:alpine
+FROM golang:alpine as build
 MAINTAINER public@omeid.me
 
 ADD . /go/src/github.com/omeid/echo
 RUN go install -x -v github.com/omeid/echo/http/cmd/echo
-ENTRYPOINT ["/go/bin/echo"]
+
+FROM alpine
+COPY --from=build /go/bin/echo /usr/bin
+ENTRYPOINT ["/usr/bin/echo"]
 
 EXPOSE 3000
