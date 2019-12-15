@@ -1,0 +1,17 @@
+language: go
+
+go:
+  - 1.13
+  - master
+
+
+install:
+  - go get
+  - go get github.com/mattn/goveralls
+
+script:
+  - go test
+  - $HOME/gopath/bin/goveralls -service=travis-ci
+  - docker build -f Dockerfile.http -t omeid/echo:http .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push omeid/echo:http
