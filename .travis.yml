@@ -18,6 +18,6 @@ deploy:
     condition: $TRAVIS_GO_VERSION =~ 1.13
   provider: script
   script: >-
-    docker build -f Dockerfile.http -t omeid/echo:http .
-    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    docker build -f Dockerfile.http -t omeid/echo:http . &&
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin &&
     docker push omeid/echo:http
