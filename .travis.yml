@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - &latest 1.13
+  - 1.13
   - master
 
 
@@ -15,7 +15,7 @@ script:
 
 deploy:
   on:
-    condition: $TRAVIS_GO_VERSION =~ *latest
+    condition: $TRAVIS_GO_VERSION =~ 1.13
   provider: script
   script: >-
     docker build -f Dockerfile.http -t omeid/echo:http .
